@@ -25,7 +25,7 @@ from Decoder import DecoderRNN
 
 if __name__ == '__main__':
     
-    train_dir = '../Processed Data/train'
+    train_dir = '../Processed Data/dev'
     print('STARTING THE TRAINING PHASE ...........')
     # Building the vocabulary using the caption file available at the train directory
     print('-' * 100)
