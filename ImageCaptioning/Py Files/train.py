@@ -61,8 +61,8 @@ if __name__ == '__main__':
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(params = params, lr = learning_rate)
 
-    num_epoch = 100000
-    print_every = 1000
+    num_epoch = 10000
+    print_every = 100
 
     for epoch in range(num_epoch):
         shuffled_images, shuffled_captions = shuffle_data(data = data)
