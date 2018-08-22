@@ -23,6 +23,12 @@ from Encoder import Encoder
 from Decoder import DecoderRNN
 
 
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+from google.colab import auth
+from oauth2client.client import GoogleCredentials
+
+
 if __name__ == '__main__':
     
     train_dir = '../Processed Data/dev'
@@ -61,8 +67,14 @@ if __name__ == '__main__':
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(params = params, lr = learning_rate)
 
-    num_epoch = 10000
+    num_epoch = 1000
     print_every = 100
+    
+    # 1. Authenticate and create the PyDrive client.
+    auth.authenticate_user()
+    gauth = GoogleAuth()
+    gauth.credentials = GoogleCredentials.get_application_default()
+    drive = GoogleDrive(gauth)
 
     for epoch in range(num_epoch):
         shuffled_images, shuffled_captions = shuffle_data(data = data)
@@ -101,3 +113,11 @@ if __name__ == '__main__':
         if epoch % print_every == 0:
             torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
             torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
+            
+            encoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch))})
+            encoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
+            encoder_file.Upload()
+            
+            decoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch))})
+            decoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
+            decoder_file.Upload()
