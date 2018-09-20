@@ -7,6 +7,7 @@
 
 # Importing Requisites
 import torch.nn as nn
+from torch.autograd import Variable
 import torchvision.models as models
 
 class Encoder(nn.Module):
@@ -24,7 +25,6 @@ class Encoder(nn.Module):
         self.freeze_weights() 
 
         self.linear = nn.Linear(self.module.fc.in_features, embedding_dim)
-        self.module.fc = self.linear
         self.bn = nn.BatchNorm1d(embedding_dim, momentum = 0.01)
         self.init_weights()
 
@@ -51,6 +51,8 @@ class Encoder(nn.Module):
         '''
             Defining forward pass for the network
         '''
-        embed = self.module(images)
-        embed = self.bn(embed)
+        features = self.module(images)
+        features = Variable(features.data)
+        features = features.view(features.size(0), -1)
+        embed = self.bn(self.linear(features))
         return embed
