@@ -75,7 +75,7 @@ if __name__ == '__main__':
     optimizer = torch.optim.Adam(params = params, lr = learning_rate)
 
     num_epoch = 1000
-    print_every = 100
+    save_every = 10
 
     print('-' * 100)
     print('Starting training network')
@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
         avg_loss = torch.mean(torch.Tensor(loss_list))
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
-        if epoch % print_every == 0:
+        if epoch % save_every == 0:
             torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
             torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
             
