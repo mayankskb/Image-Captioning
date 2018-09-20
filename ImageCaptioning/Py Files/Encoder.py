@@ -31,7 +31,7 @@ class Encoder(nn.Module):
     def init_weights(self):
         '''initializing weights'''
         self.linear.weight.data.normal_(0.0, 0.02)  # mean, std
-        self.linear.bias.fill_(0)
+        self.linear.bias.data.fill_(0)
 
         # for xavier initialisation 
         # nn.init.xavier_normal_(self.linear.weight)
