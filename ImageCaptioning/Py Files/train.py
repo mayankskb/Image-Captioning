@@ -77,6 +77,10 @@ if __name__ == '__main__':
     num_epoch = 1000
     print_every = 100
 
+    print('-' * 100)
+    print('Starting training network')
+    print('-' * 100)
+    
     for epoch in range(num_epoch):
         shuffled_images, shuffled_captions = shuffle_data(data = data)
         num_captions = len(shuffled_captions)
