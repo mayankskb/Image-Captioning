@@ -24,7 +24,9 @@ class Encoder(nn.Module):
         # so that no attenuation can be done to their weights
         self.freeze_weights() 
 
-        self.linear = nn.Linear(self.module.fc.in_features, embedding_dim)
+        num_fcptr = self.module.fc.in_features
+        self.linear = nn.Linear(num_fcptr, embedding_dim)
+        self.module.fc = self.linear
         self.bn = nn.BatchNorm1d(embedding_dim, momentum = 0.01)
         self.init_weights()
 
@@ -52,6 +54,5 @@ class Encoder(nn.Module):
             Defining forward pass for the network
         '''
         features = self.module(images)
-        features = self.linear(features)
         embed = self.bn(features)
         return embed
