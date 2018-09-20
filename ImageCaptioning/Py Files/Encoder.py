@@ -54,5 +54,7 @@ class Encoder(nn.Module):
             Defining forward pass for the network
         '''
         features = self.module(images)
+        features = Variable(features)
+        features = features.view(features.size(0), -1)
         embed = self.bn(features)
         return embed
