@@ -69,6 +69,10 @@ if __name__ == '__main__':
     encoder = Encoder()
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
 
+    if torch.cuda.is_available():
+        encoder.cuda()
+        decoder.cuda()
+
     params = list(encoder.linear.parameters()) + list(decoder.parameters())
 
     criterion = nn.CrossEntropyLoss()
