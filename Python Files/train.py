@@ -23,20 +23,20 @@ from Encoder import Encoder
 from Decoder import DecoderRNN
 
 
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
-from google.colab import auth
-from oauth2client.client import GoogleCredentials
+# from pydrive.auth import GoogleAuth
+# from pydrive.drive import GoogleDrive
+# from google.colab import auth
+# from oauth2client.client import GoogleCredentials
 
 
 
 if __name__ == '__main__':
     
     # 1. Authenticate and create the PyDrive client.
-    auth.authenticate_user()
-    gauth = GoogleAuth()
-    gauth.credentials = GoogleCredentials.get_application_default()
-    drive = GoogleDrive(gauth)
+    # auth.authenticate_user()
+    # gauth = GoogleAuth()
+    # gauth.credentials = GoogleCredentials.get_application_default()
+    # drive = GoogleDrive(gauth)
     
     train_dir = '../Processed Data/dev'
     print('STARTING THE TRAINING PHASE ...........')
@@ -127,10 +127,10 @@ if __name__ == '__main__':
             torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
             torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
             
-            encoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch))})
-            encoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
-            encoder_file.Upload()
+            # encoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch))})
+            # encoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
+            # encoder_file.Upload()
             
-            decoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch))})
-            decoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
-            decoder_file.Upload()
+            # decoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch))})
+            # decoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
+            # decoder_file.Upload()
