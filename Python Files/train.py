@@ -97,8 +97,12 @@ if __name__ == '__main__':
             image = dataloader.get_image(image_id)
             image = image.unsqueeze(0)
 
-            image = Variable(image)
-            caption = torch.LongTensor(shuffled_captions[i])
+            if torch.cuda.is_available():
+                image = Variable(image).cuda()
+                caption = torch.cuda.LongTensor(shuffled_captions[i])
+            else:
+                image = Variable(image)
+                caption = torch.LongTensor(shuffled_captions[i])
 
             caption_train = caption[:-1]
 
