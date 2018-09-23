@@ -77,8 +77,8 @@ if __name__ == '__main__':
         image = Variable(image)
 
 
-    encoder.load_state_dict(torch.load(encoder_saved_module, map_location='cpu'))
-    decoder.load_state_dict(torch.load(decoder_saved_module, map_location='cpu')) 
+    encoder.load_state_dict(torch.load(encoder_saved_module))
+    decoder.load_state_dict(torch.load(decoder_saved_module)) 
     
     encoder_out = encoder(image)
     decoder_out = decoder(encoder_out)
