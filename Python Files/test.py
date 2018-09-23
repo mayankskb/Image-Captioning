@@ -55,8 +55,8 @@ if __name__ == '__main__':
     hidden_dim = 512
     embedding_dim = 512
 
-    encoder_saved_module = '../Model Training/iter_110_encoder.pkl'
-    decoder_saved_module = '../Model Training/iter_110_decoder.pkl'
+    encoder_saved_module = '../Model Training/iter_100_encoder.pkl'
+    decoder_saved_module = '../Model Training/iter_100_decoder.pkl'
 
     encoder = Encoder(embedding_dim = embedding_dim)
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
@@ -77,8 +77,8 @@ if __name__ == '__main__':
         image = Variable(image)
 
 
-    encoder.load_state_dict(torch.load(encoder_saved_module))
-    decoder.load_state_dict(torch.load(decoder_saved_module)) 
+    encoder.load_state_dict(torch.load(encoder_saved_module, map_location='cpu'))
+    decoder.load_state_dict(torch.load(decoder_saved_module, map_location='cpu')) 
     
     encoder_out = encoder(image)
     decoder_out = decoder(encoder_out)

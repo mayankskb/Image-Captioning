@@ -124,8 +124,8 @@ if __name__ == '__main__':
         avg_loss = torch.mean(torch.Tensor(loss_list))
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
         if epoch % save_every == 0:
-            torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
-            torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
+            torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pt'%(epoch)))
+            torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))
             
             # encoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch))})
             # encoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
