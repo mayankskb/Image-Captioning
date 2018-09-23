@@ -82,4 +82,4 @@ if __name__ == '__main__':
     
     encoder_out = encoder(image)
     decoder_out = decoder(encoder_out)
-    print(vocab.get_sentence(ids_list))
+    print(vocab.get_sentence(decoder_out))
