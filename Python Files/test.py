@@ -55,8 +55,8 @@ if __name__ == '__main__':
     hidden_dim = 512
     embedding_dim = 512
 
-    encoder_saved_module = '../Model Training/iter_120_encoder.pkl'
-    decoder_saved_module = '../Model Training/iter_120_decoder.pkl'
+    encoder_saved_module = '../Model Training/iter_110_encoder.pkl'
+    decoder_saved_module = '../Model Training/iter_110_decoder.pkl'
 
     encoder = Encoder(embedding_dim = embedding_dim)
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
