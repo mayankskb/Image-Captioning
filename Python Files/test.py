@@ -61,7 +61,9 @@ if __name__ == '__main__':
     encoder = Encoder(embedding_dim = embedding_dim)
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
 
-
+    encoder.load_state_dict(torch.load(encoder_saved_module))
+    decoder.load_state_dict(torch.load(decoder_saved_module)) 
+    
     img = str(input('Enter the image id for which you want to get caption'))
     image_path = os.path.join(test_dir, img)
     print(image_path)
@@ -77,8 +79,7 @@ if __name__ == '__main__':
         image = Variable(image)
 
 
-    encoder.load_state_dict(torch.load(encoder_saved_module, map_location='cpu'))
-    decoder.load_state_dict(torch.load(decoder_saved_module, map_location='cpu')) 
+    
     
     encoder_out = encoder(image)
     decoder_out = decoder(encoder_out)
