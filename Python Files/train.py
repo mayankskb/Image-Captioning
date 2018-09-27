@@ -23,20 +23,7 @@ from Encoder import Encoder
 from Decoder import DecoderRNN
 
 
-# from pydrive.auth import GoogleAuth
-# from pydrive.drive import GoogleDrive
-# from google.colab import auth
-# from oauth2client.client import GoogleCredentials
-
-
-
 if __name__ == '__main__':
-    
-    # 1. Authenticate and create the PyDrive client.
-    # auth.authenticate_user()
-    # gauth = GoogleAuth()
-    # gauth.credentials = GoogleCredentials.get_application_default()
-    # drive = GoogleDrive(gauth)
     
     train_dir = '../Processed Data/dev'
     print('STARTING THE TRAINING PHASE ...........')
@@ -54,6 +41,10 @@ if __name__ == '__main__':
         print('DUMPED DICTIONARY')
         print('-' * 100)
     
+    # Transforming the input
+    #  -  Resizing the image, 
+    #  -  Converting it into a tensor object,
+    #  -  Normalizing it with Mean and standard deviation
     transforms = transforms.Compose([transforms.Resize((224, 224)),transforms.ToTensor(),
                                                                  transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     
@@ -66,13 +57,16 @@ if __name__ == '__main__':
     learning_rate = 1e-3
     embedding_dim = 512
 
+    # Initializing Encoder and Decoder Network passing appropriate arguments
     encoder = Encoder()
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
 
+    # Converting tensors into cuda based tensors if available
     if torch.cuda.is_available():
         encoder.cuda()
         decoder.cuda()
 
+    # Concatenating the parameters of Encoder and Decoder Network into one
     params = list(encoder.linear.parameters()) + list(decoder.parameters())
 
     criterion = nn.CrossEntropyLoss()
@@ -86,6 +80,7 @@ if __name__ == '__main__':
     print('-' * 100)
     
     for epoch in range(num_epoch):
+        # Suffling image per epoch to get training order different
         shuffled_images, shuffled_captions = shuffle_data(data = data)
         num_captions = len(shuffled_captions)
 
@@ -124,17 +119,15 @@ if __name__ == '__main__':
         avg_loss = torch.mean(torch.Tensor(loss_list))
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
         if epoch % save_every == 0:
-            torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
-            torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
-
-
             torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pt'%(epoch)))
             torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))
             
-            # encoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch))})
-            # encoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
-            # encoder_file.Upload()
+            img = str(input('Enter the image Path : '))
+            if torch.cuda.is_available():
+                img = Variable(img).cuda()
+            else:
+                img = Variable(img)
             
-            # decoder_file = drive.CreateFile({'title' : os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch))})
-            # decoder_file.SetContentFile(os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
-            # decoder_file.Upload()
+            enc_out = Encoder(img)
+            dec_out = decoder(img)
+            print(vocab.get_sentence(dec_out))
