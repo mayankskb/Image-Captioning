@@ -73,7 +73,7 @@ if __name__ == '__main__':
     
     # Passing the input from the network 
     encoder_out = encoder(image)
-    decoder_out = decoder(encoder_out)
+    decoder_out = decoder.get_caption_ids(encoder_out)
 
     # Printing the outputs
     print(vocab.get_sentence(decoder_out))
