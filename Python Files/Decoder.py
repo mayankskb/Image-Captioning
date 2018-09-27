@@ -32,16 +32,18 @@ class DecoderRNN(nn.Module):
         out = self.linear(gru_out.view(seq_length, -1))
         return out
 
-    def get_caption_ids(self, cnn_out, seq_len = 20):
-        ip = cnn_out
+    def get_caption_ids(self, encod_out, seq_len = 20):
+        ip = encod_out
+        inputs = ip.unsqueeze(1)
         hidden = None
         ids_list = []
         for t in range(seq_len):
-            gru_out, hidden = self.gru(ip.unsqueeze(1), hidden)
+            gru_out, hidden = self.gru(inputs, hidden)
             # generating single word at a time
             linear_out = self.linear(gru_out.squeeze(1))
-            word_caption = gru_out.max(dim=1)[1]
-            ids_list.append(word_caption)
-            ip = self.word_embeddings(word_caption)
+            _, predicted = linear_out.max(dim=1)
+            ids_list.append(predicted)
+            inputs = self.word_embeddings(predicted)
+            inputs = inputs.unsqueeze(1)
         return ids_list
         
