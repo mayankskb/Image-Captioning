@@ -138,6 +138,6 @@ if __name__ == '__main__':
             else:
                 img = Variable(img)
             
-            enc_out = Encoder(img)
+            enc_out = encoder(img)
             dec_out = decoder(img)
             print(vocab.get_sentence(dec_out))
