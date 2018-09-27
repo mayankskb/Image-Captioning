@@ -14,6 +14,7 @@ import torch
 import csv
 import torch.nn as nn
 import matplotlib.pyplot as plt
+from PIL import Image
 
 from torchvision import transforms
 from torch.autograd import Variable
