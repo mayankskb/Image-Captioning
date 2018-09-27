@@ -137,7 +137,11 @@ if __name__ == '__main__':
                 img = Variable(img).cuda()
             else:
                 img = Variable(img)
-            
+
+            decoder_test = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
+            decoder_test.load_state_dict(torch.load(os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))) 
+    
+
             enc_out = encoder(img)
             dec_out = decoder(img)
             print(vocab.get_sentence(dec_out))
