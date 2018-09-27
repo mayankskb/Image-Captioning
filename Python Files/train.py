@@ -120,7 +120,7 @@ if __name__ == '__main__':
         toc = time.time()
 
         avg_loss = torch.mean(torch.Tensor(loss_list))
-        file.write(avg_loss)
+        file.write(str(avg_loss.item()))
         file.write(',')
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
         if epoch % save_every == 0:
