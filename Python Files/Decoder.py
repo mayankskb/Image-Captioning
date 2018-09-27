@@ -32,15 +32,15 @@ class DecoderRNN(nn.Module):
         out = self.linear(gru_out.view(seq_length, -1))
         return out
 
-    def greedy(self, cnn_out, seq_len = 20):
+    def get_caption_ids(self, cnn_out, seq_len = 20):
         ip = cnn_out
         hidden = None
         ids_list = []
         for t in range(seq_len):
-            lstm_out, hidden = self.lstm(ip.unsqueeze(1), hidden)
+            gru_out, hidden = self.gru(ip.unsqueeze(1), hidden)
             # generating single word at a time
-            linear_out = self.linear(lstm_out.squeeze(1))
-            word_caption = linear_out.max(dim=1)[1]
+            linear_out = self.linear(gru_out.squeeze(1))
+            word_caption = gru_out.max(dim=1)[1]
             ids_list.append(word_caption)
             ip = self.word_embeddings(word_caption)
         return ids_list

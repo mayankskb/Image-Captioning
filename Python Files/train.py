@@ -143,5 +143,5 @@ if __name__ == '__main__':
     
 
             enc_out = encoder(img)
-            dec_out = decoder_test.greedy(img)
+            dec_out = decoder_test.get_caption_ids(img)
             print(vocab.get_sentence(dec_out))
