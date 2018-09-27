@@ -11,6 +11,7 @@ import time
 import pickle
 import json
 import torch
+import csv
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
@@ -79,6 +80,8 @@ if __name__ == '__main__':
     print('Starting training network')
     print('-' * 100)
     
+    file = open('Losses.txt', 'a')
+
     for epoch in range(num_epoch):
         # Suffling image per epoch to get training order different
         shuffled_images, shuffled_captions = shuffle_data(data = data)
@@ -117,12 +120,18 @@ if __name__ == '__main__':
         toc = time.time()
 
         avg_loss = torch.mean(torch.Tensor(loss_list))
+        file.write(avg_loss)
+        file.write(',')
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
         if epoch % save_every == 0:
             torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pt'%(epoch)))
             torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))
+
             
             img = str(input('Enter the image Path : '))
+
+            img = transforms(Image.open(img))
+            img = img.unsqueeze(0)
             if torch.cuda.is_available():
                 img = Variable(img).cuda()
             else:
