@@ -60,7 +60,7 @@ class Vocab_builder():
     def get_sentence(self, ids_list):
         sent = ''
         for cur_id in ids_list:
-            cur_word = self.ind2word[cur_id]
+            cur_word = self.ind2word[cur_id.item()]
             sent += ' ' + cur_word
             if cur_word == '<end>':
                 break
