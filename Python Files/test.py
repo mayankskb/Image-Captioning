@@ -45,7 +45,6 @@ if __name__ == '__main__':
     embedding_dim = 512
 
     # Path where the input saved module is present    
-    encoder_saved_module = '../Model Training/iter_0_encoder.pt'
     decoder_saved_module = '../Model Training/iter_0_decoder.pt'
 
     # Initializing the Encoder and Decoder Network with arguments passed
@@ -53,7 +52,6 @@ if __name__ == '__main__':
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
 
     # Reading the pretrained weights for Encoder and Decoder
-    encoder.load_state_dict(torch.load(encoder_saved_module))
     decoder.load_state_dict(torch.load(decoder_saved_module)) 
     
     # Taking input from user for image to be captioned
