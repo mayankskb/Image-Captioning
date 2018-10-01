@@ -15,7 +15,7 @@ class DecoderRNN(nn.Module):
         super(DecoderRNN, self).__init__()
         self.hidden_dim = hidden_dim
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
-        self.lstm = nn.LSTM(embedding_dim, hidden_dim)
+        self.gru = nn.GRU(embedding_dim, hidden_dim)
         self.linear = nn.Linear(hidden_dim, vocab_size)
         self.init_weights()
     
@@ -28,8 +28,8 @@ class DecoderRNN(nn.Module):
         seq_length = len(caption) + 1
         embeds = self.word_embeddings(caption)
         embeds = torch.cat((features, embeds), 0)
-        lstm_out, hidden = self.lstm(embeds.unsqueeze(1))
-        out = self.linear(lstm_out.view(seq_length, -1))
+        gru_out, hidden = self.gru(embeds.unsqueeze(1))
+        out = self.linear(gru_out.view(seq_length, -1))
         return out
     
 
@@ -37,9 +37,9 @@ class DecoderRNN(nn.Module):
         inputs = encod_out.unsqueeze(1)
         ids_list = []
         for t in range(seq_len):
-            lstm_out, hidden = self.lstm(inputs, hidden)
+            gru_out, hidden = self.gru(inputs, hidden)
             # generating single word at a time
-            linear_out = self.linear(lstm_out.squeeze(1))
+            linear_out = self.linear(gru_out.squeeze(1))
             _, predicted = linear_out.max(dim=1)
             ids_list.append(predicted)
             inputs = self.word_embeddings(predicted)
