@@ -29,7 +29,7 @@ class DecoderRNN(nn.Module):
         embeds = self.word_embeddings(caption)
         embeds = torch.cat((features, embeds), 0)
         lstm_out, hidden = self.lstm(embeds.unsqueeze(1))
-        print('Hidden Type : {}, Hidden Shape : {}, Hidden Dimensions : {}'.format(type(hidden), hidden.shape(), hidden.dim()))
+        print('Hidden Type : {}'.format(type(hidden)))
         out = self.linear(lstm_out.view(seq_length, -1))
         return out
     
