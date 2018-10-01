@@ -15,7 +15,6 @@ class DecoderRNN(nn.Module):
         super(DecoderRNN, self).__init__()
         self.hidden_dim = hidden_dim
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
-        print('type - {}, {}'.format(type(embedding_dim), type(hidden_dim)))
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)
         self.linear = nn.Linear(hidden_dim, vocab_size)
         self.init_weights()
@@ -36,21 +35,17 @@ class DecoderRNN(nn.Module):
     def init_hidden(self):
         return torch.zeros(1, 1, self.hidden_dim)
 
-    def get_caption_ids(self, encod_out, seq_len = 20):
-        ip = encod_out
-        inputs = ip.unsqueeze(1)
-        hidden = None
-        print(hidden.size())
+    def get_caption_ids(self, encod_out, hidden = None, seq_len = 20):
+        inputs = encod_out.unsqueeze(1)
         ids_list = []
         for t in range(seq_len):
-            print('type - {}, {}'.format(type(inputs), type(hidden)))
             lstm_out, hidden = self.lstm(inputs, hidden)
-            print(hidden.size())
             # generating single word at a time
             linear_out = self.linear(lstm_out.squeeze(1))
             _, predicted = linear_out.max(dim=1)
             ids_list.append(predicted)
             inputs = self.word_embeddings(predicted)
             inputs = inputs.unsqueeze(1)
+        ids_list = torch.stack(ids_list, 1)
         return ids_list
         
