@@ -39,7 +39,7 @@ class DecoderRNN(nn.Module):
     def get_caption_ids(self, encod_out, seq_len = 20):
         ip = encod_out
         inputs = ip.unsqueeze(1)
-        hidden = self.init_hidden()
+        hidden = None
         print(hidden.size())
         ids_list = []
         for t in range(seq_len):
