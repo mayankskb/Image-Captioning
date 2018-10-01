@@ -32,11 +32,14 @@ class DecoderRNN(nn.Module):
         lstm_out, _ = self.lstm(embeds.unsqueeze(1))
         out = self.linear(lstm_out.view(seq_length, -1))
         return out
+    
+    def init_hidden(self):
+        return torch.zeros(1, 1, self.hidden_dim, device = device)
 
     def get_caption_ids(self, encod_out, seq_len = 20):
         ip = encod_out
         inputs = ip.unsqueeze(1)
-        hidden = None
+        hidden = self.init_hidden
         ids_list = []
         for t in range(seq_len):
             print('type - {}, {}'.format(type(inputs), type(hidden)))
