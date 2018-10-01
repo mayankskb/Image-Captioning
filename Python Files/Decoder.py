@@ -15,6 +15,7 @@ class DecoderRNN(nn.Module):
         super(DecoderRNN, self).__init__()
         self.hidden_dim = hidden_dim
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        print('type - {}, {}'.format(type(embedding_dim), type(hidden_dim)))
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)
         self.linear = nn.Linear(hidden_dim, vocab_size)
         self.init_weights()
@@ -38,6 +39,7 @@ class DecoderRNN(nn.Module):
         hidden = None
         ids_list = []
         for t in range(seq_len):
+             print('type - {}, {}'.format(type(inputs), type(hidden)))
             lstm_out, hidden = self.lstm(inputs, hidden)
             # generating single word at a time
             linear_out = self.linear(lstm_out.squeeze(1))
