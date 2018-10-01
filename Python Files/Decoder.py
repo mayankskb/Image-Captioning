@@ -34,16 +34,18 @@ class DecoderRNN(nn.Module):
         return out
     
     def init_hidden(self):
-        return torch.zeros(1, 1, self.hidden_dim)
+        return torch.zeros(1, 1, 1, self.hidden_dim)
 
     def get_caption_ids(self, encod_out, seq_len = 20):
         ip = encod_out
         inputs = ip.unsqueeze(1)
         hidden = self.init_hidden()
+        print(hidden.dim())
         ids_list = []
         for t in range(seq_len):
             print('type - {}, {}'.format(type(inputs), type(hidden)))
             lstm_out, hidden = self.lstm(inputs, hidden)
+            print(hidden.dim())
             # generating single word at a time
             linear_out = self.linear(lstm_out.squeeze(1))
             _, predicted = linear_out.max(dim=1)
