@@ -23,7 +23,7 @@ The task of image captioning can be divided into two modules logically – one i
 For our image-based model (viz encoder) – we usually rely on a Convolutional Neural Network model. And for our language-based model (viz decoder) – we rely on a Recurrent Neural Network. The image below summarizes the approach given above.
 
 <p>
-  <img src = './support/arch..png'>
+  <img src = './support/arch.png'>
 </p>
 
 This architecture heavily employees "Encoder-Decoder" framework where encoder part is implemented using the convnet architecture and decoder part is implemented using LSTM cells based recurrent nets.
