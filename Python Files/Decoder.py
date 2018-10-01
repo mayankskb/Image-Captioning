@@ -39,7 +39,7 @@ class DecoderRNN(nn.Module):
         hidden = None
         ids_list = []
         for t in range(seq_len):
-             print('type - {}, {}'.format(type(inputs), type(hidden)))
+            print('type - {}, {}'.format(type(inputs), type(hidden)))
             lstm_out, hidden = self.lstm(inputs, hidden)
             # generating single word at a time
             linear_out = self.linear(lstm_out.squeeze(1))
