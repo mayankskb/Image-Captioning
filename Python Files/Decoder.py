@@ -40,12 +40,12 @@ class DecoderRNN(nn.Module):
         ip = encod_out
         inputs = ip.unsqueeze(1)
         hidden = self.init_hidden()
-        print(hidden.dim())
+        print(hidden.size())
         ids_list = []
         for t in range(seq_len):
             print('type - {}, {}'.format(type(inputs), type(hidden)))
             lstm_out, hidden = self.lstm(inputs, hidden)
-            print(hidden.dim())
+            print(hidden.size())
             # generating single word at a time
             linear_out = self.linear(lstm_out.squeeze(1))
             _, predicted = linear_out.max(dim=1)
