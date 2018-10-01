@@ -34,7 +34,7 @@ class DecoderRNN(nn.Module):
         return out
     
     def init_hidden(self):
-        return torch.zeros(1,1, self.hidden_dim)
+        return torch.zeros(1, 1, self.hidden_dim)
 
     def get_caption_ids(self, encod_out, seq_len = 20):
         ip = encod_out
