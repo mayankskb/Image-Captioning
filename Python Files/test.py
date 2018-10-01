@@ -45,7 +45,7 @@ if __name__ == '__main__':
     embedding_dim = 512
 
     # Path where the input saved module is present    
-    decoder_saved_module = '../Model Training/iter_0_decoder.pt'
+    decoder_saved_module = '../Model Training/iter_120_decoder.pkl'
 
     # Initializing the Encoder and Decoder Network with arguments passed
     encoder = Encoder(embedding_dim = embedding_dim)
