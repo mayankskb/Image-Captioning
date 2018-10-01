@@ -19,26 +19,26 @@ This is also a very active area of research and an interesting multi modal topic
 4.	Can be used to give something back to mankind for visually impaired people.
  and many more.
 
-The task of image captioning can be divided into two modules logically – one is an image-based model – which extracts the features and nuances out of our image, and the other is a language-based model – which translates the features and objects given by our image-based model to a natural sentence.    
-For our image-based model (viz encoder) – we usually rely on a Convolutional Neural Network model. And for our language-based model (viz decoder) – we rely on a Recurrent Neural Network. The image below summarizes the approach given above.
+The task of image captioning can be divided into two modules logically – one is an `image-based model` – which extracts the features and nuances out of our image, and the other is a `language-based model` – which translates the features and objects given by our image-based model to a natural sentence.    
+For our image-based model (viz encoder) – we usually rely on a `Convolutional Neural Network` model. And for our language-based model (viz decoder) – we rely on a `Recurrent Neural Network`. The image below summarizes the approach given above.
 
 <p>
   <img src = './support/arch.png'>
 </p>
 
-This architecture heavily employees "Encoder-Decoder" framework where encoder part is implemented using the convnet architecture and decoder part is implemented using LSTM cells based recurrent nets.
+This architecture heavily employees ``"Encoder-Decoder"`` framework where encoder part is implemented using the convnet architecture and decoder part is implemented using LSTM cells based recurrent nets.
 
 <p>
   <img src = './support/encod-decod.png'>
 </p>
 
 For the convnet part we can employ transfer learning and can use some models from ImageNet and then Fine tune them as per our requirement.  
-This kind of system is known as attention-based system, which automatically learns to describe the content of an image in words. We can train this model in a standard manner using standard backprop technique and stochastically by maximising a variationally lower bound.  
+This kind of system is known as attention-based system, which automatically learns to describe the content of an image in words. We can train this model in a standard manner using standard backprop technique and stochastically by maximizing a variationally lower bound.  
 
 I found these two papers quite handy:
 1.	Show and Tell: A Neural Image Caption Generator
 2.	Show, Attend and Tell: Neural Image Caption Generation with Visual image
 
-> Sytem Information
+> System Information
 
 > Result
