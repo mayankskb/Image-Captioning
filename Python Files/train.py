@@ -125,23 +125,5 @@ if __name__ == '__main__':
         file.write(',')
         print('epoch %d avg_loss %f time %.2f mins'%(epoch, avg_loss, (toc-tic)/60))
         if epoch % save_every == 0:
-            torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pt'%(epoch)))
-            torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))
-
-            
-            img = str(input('Enter the image Path : '))
-
-            img = transforms(Image.open(img))
-            img = img.unsqueeze(0)
-            if torch.cuda.is_available():
-                img = Variable(img).cuda()
-            else:
-                img = Variable(img)
-
-            decoder_test = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
-            decoder_test.load_state_dict(torch.load(os.path.join('../Model Training/', 'iter_%d_decoder.pt'%(epoch)))) 
-    
-
-            enc_out = encoder(img)
-            dec_out = decoder_test.get_caption_ids(enc_out)
-            print(vocab.get_sentence(dec_out))
+            torch.save(encoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_encoder.pkl'%(epoch)))
+            torch.save(decoder.state_dict(), os.path.join('../Model Training/', 'iter_%d_decoder.pkl'%(epoch)))
