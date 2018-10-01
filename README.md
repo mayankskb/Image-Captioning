@@ -38,3 +38,7 @@ This kind of system is known as attention-based system, which automatically lear
 I found these two papers quite handy:
 1.	Show and Tell: A Neural Image Caption Generator
 2.	Show, Attend and Tell: Neural Image Caption Generation with Visual image
+
+> Sytem Information
+
+> Result
