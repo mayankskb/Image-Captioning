@@ -44,6 +44,5 @@ class DecoderRNN(nn.Module):
             ids_list.append(predicted)
             inputs = self.word_embeddings(predicted)
             inputs = inputs.unsqueeze(1)
-        ids_list = torch.stack(ids_list, 1)
         return ids_list
         
