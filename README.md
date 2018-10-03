@@ -2,11 +2,12 @@
 
 `Image Captioning` can be defined in simple words as ``"Automatically generating the textual description using an artificial intelligence based system for an image"``. The goal of such a system is to convert a given input image into the Natural Language Description.  
 
-<p>
+<p align = 'center'>
   <img src = './support/intro.png'>
 </p>
 
 The above example is enough to understand image captioning.  
+  
 Caption generation is a challenging artificial intelligence problem where a textual description must be generated for a given photograph.  
 It requires both methods from computer vision to understand the content of the image and a language model from the field of natural language processing to turn the understanding of the image into words in the right order.  
 This is also a very active area of research and an interesting multi modal topic where combination of both image and text processing is used to build a useful Deep Learning application, aka Image Captioning.    
@@ -22,14 +23,14 @@ This is also a very active area of research and an interesting multi modal topic
 The task of image captioning can be divided into two modules logically – one is an `image-based model` – which extracts the features and nuances out of our image, and the other is a `language-based model` – which translates the features and objects given by our image-based model to a natural sentence.    
 For our image-based model (viz encoder) – we usually rely on a `Convolutional Neural Network` model. And for our language-based model (viz decoder) – we rely on a `Recurrent Neural Network`. The image below summarizes the approach given above.
 
-<p>
+<p align = 'center'>
   <img src = './support/arch.png' width = '50%' height = '50%'>
 </p>
 
 This architecture heavily employees ``"Encoder-Decoder"`` framework where encoder part is implemented using the convnet architecture and decoder part is implemented using LSTM cells based recurrent nets.
 
-<p>
-  <img src = './support/encod-decod.png'>
+<p align = 'center'>
+  <img src = './support/encod-decod.png' align = 'center'>
 </p>
 
 For the convnet part we can employ transfer learning and can use some models from ImageNet and then Fine tune them as per our requirement.  
