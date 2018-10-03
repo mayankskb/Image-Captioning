@@ -42,4 +42,8 @@ I found these two papers quite handy:
 
 > System Information
 
-> Result
+> Result  
+Following diagram represents the Average loss per epoch.  
+<p align = 'center'>
+  <img src = './Model Training/avg_loss_per_epoch.png' align = 'center'>
+</p>
