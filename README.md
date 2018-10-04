@@ -7,7 +7,7 @@
 </p>
 
 The above example is enough to understand image captioning.  
-  
+
 Generation of captions is a challenging artificial intelligence problem where a textual description must be generated for a given photograph.  
 It requires methods both from computer vision to understand the content of an image and a language model from the field of natural language processing to turn the understanding of the image into words in the right order.  
 This is also a very active area of research and an interesting multi modal topic where combination of both image and text processing is used to build a useful Deep Learning application, aka Image Captioning.    
@@ -41,11 +41,15 @@ I found these two papers quite handy:
 2.	Show, Attend and Tell: Neural Image Caption Generation with Visual image
 
 > System Information
-  
 
-    
+1. Encoder : Used Convolution Neural Network
+  - A Pretrained ResNet 152 module and used it as a fixed feature extractor, removing the classification layer and outputting a vector of length 512.
+  - Initializing weights of the last fully connected layer using normal distribution having mean of 0 and standard deviation of 0.02
+  - Used a Batch Norm layer with momentum = 0.01
+2. Decoder : Used GRU based Recurrent Neural Network
+
 > Result  
-  
+
 Following diagram represents the Average loss per epoch.  
 <p align = 'center'>
   <img src = './Model Training/avg_loss_per_epoch.png' align = 'center'>
