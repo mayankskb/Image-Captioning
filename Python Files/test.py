@@ -45,14 +45,16 @@ if __name__ == '__main__':
     embedding_dim = 512
 
     # Path where the input saved module is present    
-    decoder_saved_module = '../Model Training/iter_130_decoder.pkl'
+    decoder_saved_module = '../Model Training/iter_110_decoder.pkl'
+    encoder_saved_module = '../Model Training/iter_110_encoder.pkl'
 
     # Initializing the Encoder and Decoder Network with arguments passed
     encoder = Encoder(embedding_dim = embedding_dim)
     decoder = DecoderRNN(embedding_dim = embedding_dim, hidden_dim = hidden_dim, vocab_size = vocab_size)
 
     # Reading the pretrained weights for Encoder and Decoder
-    decoder.load_state_dict(torch.load(decoder_saved_module)) 
+    decoder.load_state_dict(torch.load(decoder_saved_module, map_location='cpu')) 
+    encoder.load_state_dict(torch.load(encoder_saved_module, map_location='cpu')) 
     
     # Taking input from user for image to be captioned
     img = str(input('Enter the image id for which you want to get caption'))
