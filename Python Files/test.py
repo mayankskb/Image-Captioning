@@ -30,7 +30,7 @@ if __name__ == '__main__':
     print('STARTING THE TESTING PHASE ...........')
     
     # Reading the vocab file
-    with open(os.path.join('../Model Training', 'vocab.pkl'), 'rb') as f:
+    with open(os.path.join('../Model Training/vocap', 'vocab.pkl'), 'rb') as f:
         vocab = pickle.load(f)
 
     # Transforming the image file by Resizing, making tensor from it and then 
@@ -45,8 +45,8 @@ if __name__ == '__main__':
     embedding_dim = 512
 
     # Path where the input saved module is present    
-    decoder_saved_module = '../Model Training/iter_110_decoder.pkl'
-    encoder_saved_module = '../Model Training/iter_110_encoder.pkl'
+    decoder_saved_module = '../Model Training/pretrained_model/decoder-5-3000.pkl'
+    encoder_saved_module = '../Model Training/pretrained_model/encoder-5-3000.pkl'
 
     # Initializing the Encoder and Decoder Network with arguments passed
     encoder = Encoder(embedding_dim = embedding_dim)
